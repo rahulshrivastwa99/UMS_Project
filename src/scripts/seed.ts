@@ -52,8 +52,8 @@ const students = [
 const faculty = [
   {
     id: 'FAC001',
-    name: 'Dr. Robert Johnson',
-    email: 'robert.johnson@example.com',
+    name: 'Dr. Achal Kaushik',
+    email: 'robert..com',
     department: 'Computer Science',
     position: 'Professor',
     joinedYear: '2010',

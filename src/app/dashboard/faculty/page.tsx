@@ -1,11 +1,11 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
@@ -14,8 +14,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -23,18 +23,18 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
-import { Plus, Search, Users } from "lucide-react"
+} from "@/components/ui/table";
+import { Plus, Search, Users } from "lucide-react";
 
 // Mock data for faculty members
 const faculty = [
   {
     id: "FAC001",
-    name: "Dr. Robert Johnson",
-    email: "robert.johnson@example.com",
+    name: "Dr. Achal Kaushik",
+    email: "achal.kaushik@gmail.com",
     department: "Computer Science",
     position: "Professor",
-    joinedYear: "2010",
+    joinedYear: "2008",
     courses: "CS101, CS405",
   },
   {
@@ -82,7 +82,7 @@ const faculty = [
     joinedYear: "2012",
     courses: "CHM101, CHM220",
   },
-]
+];
 
 export default function FacultyPage() {
   return (
@@ -99,7 +99,8 @@ export default function FacultyPage() {
             <DialogHeader>
               <DialogTitle>Add New Faculty Member</DialogTitle>
               <DialogDescription>
-                Enter the faculty member's information below to add them to the system.
+                Enter the faculty member's information below to add them to the
+                system.
               </DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
@@ -107,37 +108,61 @@ export default function FacultyPage() {
                 <label htmlFor="name" className="text-right">
                   Full Name
                 </label>
-                <Input id="name" placeholder="Dr. John Smith" className="col-span-3" />
+                <Input
+                  id="name"
+                  placeholder="Dr. John Smith"
+                  className="col-span-3"
+                />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
                 <label htmlFor="email" className="text-right">
                   Email
                 </label>
-                <Input id="email" placeholder="john.smith@example.com" className="col-span-3" />
+                <Input
+                  id="email"
+                  placeholder="john.smith@example.com"
+                  className="col-span-3"
+                />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
                 <label htmlFor="department" className="text-right">
                   Department
                 </label>
-                <Input id="department" placeholder="Computer Science" className="col-span-3" />
+                <Input
+                  id="department"
+                  placeholder="Computer Science"
+                  className="col-span-3"
+                />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
                 <label htmlFor="position" className="text-right">
                   Position
                 </label>
-                <Input id="position" placeholder="Professor" className="col-span-3" />
+                <Input
+                  id="position"
+                  placeholder="Professor"
+                  className="col-span-3"
+                />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
                 <label htmlFor="joinedYear" className="text-right">
                   Joined Year
                 </label>
-                <Input id="joinedYear" placeholder="2020" className="col-span-3" />
+                <Input
+                  id="joinedYear"
+                  placeholder="2020"
+                  className="col-span-3"
+                />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
                 <label htmlFor="courses" className="text-right">
                   Courses
                 </label>
-                <Input id="courses" placeholder="CS101, CS202" className="col-span-3" />
+                <Input
+                  id="courses"
+                  placeholder="CS101, CS202"
+                  className="col-span-3"
+                />
               </div>
             </div>
             <DialogFooter>
@@ -163,9 +188,7 @@ export default function FacultyPage() {
             <Users className="mr-2 h-5 w-5" />
             Faculty Directory
           </CardTitle>
-          <CardDescription>
-            View and manage all faculty members
-          </CardDescription>
+          <CardDescription>View and manage all faculty members</CardDescription>
         </CardHeader>
         <CardContent>
           <Table>
@@ -192,7 +215,9 @@ export default function FacultyPage() {
                   <TableCell>{member.joinedYear}</TableCell>
                   <TableCell>{member.courses}</TableCell>
                   <TableCell className="text-right">
-                    <Button variant="ghost" size="sm">Edit</Button>
+                    <Button variant="ghost" size="sm">
+                      Edit
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}
@@ -201,5 +226,5 @@ export default function FacultyPage() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }
