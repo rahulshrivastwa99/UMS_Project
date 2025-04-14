@@ -17,6 +17,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "University Management System",
   description: "A comprehensive platform for managing university operations",
+  icons: {
+    icon: "/logo.png",
+  },
 };
 
 export default function RootLayout({
