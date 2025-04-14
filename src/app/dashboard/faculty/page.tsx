@@ -1,4 +1,6 @@
+"use client";
 import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -85,11 +87,70 @@ const faculty = [
 ];
 
 export default function FacultyPage() {
+  // Inside FacultyPage component:
+  const [facultyList, setFacultyList] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchFaculty() {
+      try {
+        const res = await fetch("/api/faculty");
+        const data = await res.json();
+        if (data.success) {
+          setFacultyList(data.data);
+        } else {
+          console.error("Failed to fetch faculty:", data.error);
+        }
+      } catch (err) {
+        console.error("Error:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchFaculty();
+  }, []);
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    department: "",
+    position: "",
+    joinedYear: "",
+    courses: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleSubmit = async () => {
+    try {
+      const res = await fetch("/api/faculty", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      setIsOpen(false);
+
+      const data = await res.json();
+      if (data.success) {
+        setFacultyList((prev) => [data.data, ...prev]); // Prepend new faculty
+      } else {
+        alert("Error: " + data.error);
+      }
+    } catch (err) {
+      console.error("Failed to add faculty:", err);
+    }
+  };
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold tracking-tight">Faculty</h1>
-        <Dialog>
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
           <DialogTrigger asChild>
             <Button>
               <Plus className="mr-2 h-4 w-4" /> Add Faculty
@@ -110,6 +171,8 @@ export default function FacultyPage() {
                 </label>
                 <Input
                   id="name"
+                  value={formData.name}
+                  onChange={handleChange}
                   placeholder="Dr. John Smith"
                   className="col-span-3"
                 />
@@ -120,6 +183,8 @@ export default function FacultyPage() {
                 </label>
                 <Input
                   id="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   placeholder="john.smith@example.com"
                   className="col-span-3"
                 />
@@ -130,6 +195,8 @@ export default function FacultyPage() {
                 </label>
                 <Input
                   id="department"
+                  value={formData.department}
+                  onChange={handleChange}
                   placeholder="Computer Science"
                   className="col-span-3"
                 />
@@ -140,6 +207,8 @@ export default function FacultyPage() {
                 </label>
                 <Input
                   id="position"
+                  value={formData.position}
+                  onChange={handleChange}
                   placeholder="Professor"
                   className="col-span-3"
                 />
@@ -150,6 +219,8 @@ export default function FacultyPage() {
                 </label>
                 <Input
                   id="joinedYear"
+                  value={formData.joinedYear}
+                  onChange={handleChange}
                   placeholder="2020"
                   className="col-span-3"
                 />
@@ -160,13 +231,17 @@ export default function FacultyPage() {
                 </label>
                 <Input
                   id="courses"
+                  value={formData.courses}
+                  onChange={handleChange}
                   placeholder="CS101, CS202"
                   className="col-span-3"
                 />
               </div>
             </div>
             <DialogFooter>
-              <Button type="submit">Save Faculty</Button>
+              <Button type="submit" onClick={handleSubmit}>
+                Save Faculty
+              </Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
@@ -205,7 +280,7 @@ export default function FacultyPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {faculty.map((member) => (
+              {facultyList?.map((member) => (
                 <TableRow key={member.id}>
                   <TableCell className="font-medium">{member.id}</TableCell>
                   <TableCell>{member.name}</TableCell>
