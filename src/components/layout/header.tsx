@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,15 +9,15 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { LogOut, Menu, Settings, User } from "lucide-react"
-import Link from "next/link"
-import { useState } from "react"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { MainNav } from "./main-nav"
+} from "@/components/ui/dropdown-menu";
+import { LogOut, Menu, Settings, User } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { MainNav } from "./main-nav";
 
 export function Header() {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
@@ -30,9 +30,12 @@ export function Header() {
         </SheetTrigger>
         <SheetContent side="left" className="w-72">
           <div className="flex flex-col gap-6 py-4">
-            <Link href="/dashboard" className="flex items-center gap-2 px-2 text-lg font-bold">
+            <Link
+              href="/dashboard"
+              className="flex items-center gap-2 px-2 text-lg font-bold"
+            >
               <GraduationCapIcon className="h-6 w-6" />
-              <span>GuruGobindSinghIndraprasthaUniversity</span>
+              <span>Guru Gobind Singh Indraprastha University</span>
             </Link>
             <MainNav />
           </div>
@@ -40,7 +43,9 @@ export function Header() {
       </Sheet>
       <Link href="/dashboard" className="flex items-center gap-2 md:flex">
         <GraduationCapIcon className="h-6 w-6" />
-        <span className="hidden font-bold md:inline-block">GuruGobindSinghIndraprasthaUniversity</span>
+        <span className="hidden font-bold md:inline-block">
+          Guru Gobind Singh Indraprastha University
+        </span>
       </Link>
       <div className="flex-1" />
       <DropdownMenu>
@@ -71,7 +76,7 @@ export function Header() {
         </DropdownMenuContent>
       </DropdownMenu>
     </header>
-  )
+  );
 }
 
 function GraduationCapIcon(props: React.ComponentProps<"svg">) {
@@ -91,5 +96,5 @@ function GraduationCapIcon(props: React.ComponentProps<"svg">) {
       <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
       <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5" />
     </svg>
-  )
+  );
 }
