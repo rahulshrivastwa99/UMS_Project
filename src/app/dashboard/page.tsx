@@ -1,7 +1,19 @@
 "use client";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { BookOpen, GraduationCap, Loader2, Users2, Building2 } from "lucide-react"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  BookOpen,
+  GraduationCap,
+  Loader2,
+  Users2,
+  Building2,
+} from "lucide-react";
 import { useFetch } from "@/hooks/useFetch";
 import type { IStudent } from "@/models/Student";
 import type { IFaculty } from "@/models/Faculty";
@@ -10,12 +22,17 @@ import type { IDepartment } from "@/models/Department";
 import { useEffect, useState } from "react";
 
 export default function DashboardPage() {
-  const { data: students, isLoading: studentsLoading } = useFetch<IStudent[]>('/api/students');
-  const { data: faculty, isLoading: facultyLoading } = useFetch<IFaculty[]>('/api/faculty');
-  const { data: courses, isLoading: coursesLoading } = useFetch<ICourse[]>('/api/courses');
-  const { data: departments, isLoading: departmentsLoading } = useFetch<IDepartment[]>('/api/departments');
+  const { data: students, isLoading: studentsLoading } =
+    useFetch<IStudent[]>("/api/students");
+  const { data: faculty, isLoading: facultyLoading } =
+    useFetch<IFaculty[]>("/api/faculty");
+  const { data: courses, isLoading: coursesLoading } =
+    useFetch<ICourse[]>("/api/courses");
+  const { data: departments, isLoading: departmentsLoading } =
+    useFetch<IDepartment[]>("/api/departments");
 
-  const isLoading = studentsLoading || facultyLoading || coursesLoading || departmentsLoading;
+  const isLoading =
+    studentsLoading || facultyLoading || coursesLoading || departmentsLoading;
 
   return (
     <div className="flex flex-col gap-6">
@@ -57,32 +74,67 @@ export default function DashboardPage() {
             <CardDescription>Latest actions in the system</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
-              {isLoading ? (
-                <div className="flex justify-center py-4">
-                  <Loader2 className="h-6 w-6 animate-spin text-primary" />
-                </div>
-              ) : students && students.length > 0 ? (
-                <>
-                  {students.slice(0, 4).map((student, index) => (
-                    <ActivityItem
-                      key={student.id}
-                      title="New Student Registration"
-                      description={`${student.name} registered for ${student.major}`}
-                      timestamp={`${index + 1} ${index === 0 ? 'hour' : 'hours'} ago`}
-                    />
-                  ))}
-                </>
-              ) : (
-                <p className="text-center text-muted-foreground py-4">No recent activity</p>
-              )}
-            </div>
+            {isLoading ? (
+              <div className="flex justify-center py-4">
+                <Loader2 className="h-6 w-6 animate-spin text-primary" />
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {/* Recent Student Registrations */}
+                {students && students.length > 0 ? (
+                  <>
+                    <h3 className="text-base font-bold">
+                      Recent Student Registrations
+                    </h3>
+                    {students.slice(0, 4).map((student, index) => (
+                      <ActivityItem
+                        key={student.id}
+                        title="New Student Registration"
+                        description={`${student.name} registered for ${student.major}`}
+                        timestamp={`${index + 1} ${
+                          index === 0 ? "hour" : "hours"
+                        } ago`}
+                      />
+                    ))}
+                  </>
+                ) : (
+                  <p className="text-center text-muted-foreground py-4">
+                    No recent student activity
+                  </p>
+                )}
+
+                {/* Recent Faculty Registrations */}
+                {faculty && faculty.length > 0 ? (
+                  <>
+                    <h3 className="text-base font-bold mt-4">
+                      Recent Faculty Registrations
+                    </h3>
+                    {faculty.slice(0, 4).map((member, index) => (
+                      <ActivityItem
+                        key={member.id}
+                        title="New Faculty Registration"
+                        description={`${member.name} joined the ${member.department} department in ${member.joinedYear}`}
+                        timestamp={`${index + 1} ${
+                          index === 0 ? "hour" : "hours"
+                        } ago`}
+                      />
+                    ))}
+                  </>
+                ) : (
+                  <p className="text-center text-muted-foreground py-4">
+                    No recent faculty activity
+                  </p>
+                )}
+              </div>
+            )}
           </CardContent>
         </Card>
         <Card>
           <CardHeader>
             <CardTitle>Upcoming Events</CardTitle>
-            <CardDescription>Scheduled events in the next 30 days</CardDescription>
+            <CardDescription>
+              Scheduled events in the next 30 days
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -111,7 +163,7 @@ export default function DashboardPage() {
         </Card>
       </div>
     </div>
-  )
+  );
 }
 
 function DashboardCard({
@@ -121,11 +173,11 @@ function DashboardCard({
   icon,
   isLoading,
 }: {
-  title: string
-  value: string
-  description: string
-  icon: React.ReactNode
-  isLoading?: boolean
+  title: string;
+  value: string;
+  description: string;
+  icon: React.ReactNode;
+  isLoading?: boolean;
 }) {
   return (
     <Card>
@@ -137,12 +189,14 @@ function DashboardCard({
         <div className="text-2xl font-bold">
           {isLoading ? (
             <Loader2 className="h-4 w-4 animate-spin inline mr-2" />
-          ) : value}
+          ) : (
+            value
+          )}
         </div>
         <p className="text-xs text-muted-foreground">{description}</p>
       </CardContent>
     </Card>
-  )
+  );
 }
 
 function ActivityItem({
@@ -150,9 +204,9 @@ function ActivityItem({
   description,
   timestamp,
 }: {
-  title: string
-  description: string
-  timestamp: string
+  title: string;
+  description: string;
+  timestamp: string;
 }) {
   return (
     <div className="flex items-center">
@@ -162,7 +216,7 @@ function ActivityItem({
         <p className="text-xs text-muted-foreground">{timestamp}</p>
       </div>
     </div>
-  )
+  );
 }
 
 function EventItem({
@@ -170,9 +224,9 @@ function EventItem({
   description,
   date,
 }: {
-  title: string
-  description: string
-  date: string
+  title: string;
+  description: string;
+  date: string;
 }) {
   return (
     <div className="flex items-center">
@@ -182,5 +236,5 @@ function EventItem({
         <p className="text-xs font-medium text-primary">{date}</p>
       </div>
     </div>
-  )
+  );
 }
